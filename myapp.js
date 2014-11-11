@@ -17,7 +17,13 @@ if (Meteor.isClient) {
       // This function is called when the new task form is submitted
 
       var text = event.target.text.value;
-      var pseudo = event.target.pseudo.value;
+      var pseudo = "";
+      if (typeof  Meteor.user().profile !== 'undefined')
+        pseudo = Meteor.user().profile.name;
+      else
+        pseudo = Meteor.user().emails[0].address;
+
+      console.log(pseudo);
 
       if (Object.keys(Session.get('recipe')).length != 0 && text != '') {
         var recipe = Recipes.findOne(Session.get('recipe')._id);
@@ -42,7 +48,13 @@ if (Meteor.isClient) {
 
   Template.recipe.events({
     'click .recipe .delete' : function (event, template) {
-      Recipes.remove(this._id);
+      var pseudo = "";
+      if (typeof  Meteor.user().profile !== 'undefined')
+        pseudo = Meteor.user().profile.name;
+      else
+        pseudo = Meteor.user().emails[0].address;
+      if (this.pseudo == pseudo)
+        Recipes.remove(this._id);
     }
   });
 

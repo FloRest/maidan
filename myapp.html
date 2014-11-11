@@ -8,13 +8,16 @@
         <h1>Todo List !</h1>
     </header>
 
-    <form class="new-task">
-        {{#with recip}}
-            <input value="{{pseudo}}"  type="text" name="pseudo" placeholder="Pseudo" />
-            <input value="{{text}}"  type="text" name="text" placeholder="Text" />
-        {{/with}}
-        <button type="submit">submit</button>
-    </form>
+    {{> loginButtons}}
+
+    {{#if currentUser}}
+        <form class="new-task">
+            {{#with recip}}
+                <input value="{{text}}"  type="text" name="text" placeholder="Text" />
+            {{/with}}
+            <button type="submit">submit</button>
+        </form>
+    {{/if}}
 
     <ul>
       {{#each recipes}}
@@ -29,7 +32,9 @@
 
         <span class="pseudo">{{pseudo}} : </span>
         <span class="text">{{text}}</span>
-        <button class="delete">X</button>
+        {{#if currentUser}}
+            <button class="delete">X</button>
+        {{/if}}
 
     </li>
 </template>
