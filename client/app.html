@@ -1,0 +1,74 @@
+<head>
+  <title>myapp</title>
+</head>
+
+<body>
+<div class="container">
+
+</div>
+</body>
+
+<template name="ApplicationLayout">
+    <header>
+        <h1>Todo List !</h1>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/cart">My cart</a>
+            </li>
+        </ul>
+    </nav>
+
+    <article>
+        {{> yield}}
+    </article>
+</template>
+
+<template name="categories">
+    <ul>
+        {{#each categories}}
+            {{> categorie}}
+        {{/each}}
+    </ul>
+</template>
+
+<template name="categorie">
+    <li class="categorie">
+        <span class="name">{{name}}</span>
+    </li>
+</template>
+
+<template name="dishes">
+    <ul>
+        {{#each dishes}}
+            {{> dish}}
+        {{/each}}
+    </ul>
+</template>
+
+<template name="dish">
+    <li class="dish">
+        <span class="name">{{name}}</span>
+        <span class="name">{{description}}</span>
+        <span class="name">{{price}}</span>
+        <button class="add">add</button>
+    </li>
+</template>
+
+<template name="cart">
+    <ul>
+        {{#each dishes}}
+            <li class="dish">
+                <span class="name">{{name}}</span>
+                <span class="name">{{description}}</span>
+                <span class="name">{{price}}</span>
+                <button class="less">less</button>
+            </li>
+        {{/each}}
+    </ul>
+    <span>{{total}}</span>
+</template>
