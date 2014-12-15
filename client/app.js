@@ -21,9 +21,29 @@ Template.cart.helpers({
   }
 });
 
+Template.ApplicationLayout.helpers({
+  menuItems: function () {
+    var user = Meteor.user();
+
+    if (user) {
+      var allroutes = [];
+      for (var i = 0; i < user.roles.length; i++) {
+        var routes = Config.roles[user.roles[i]].routes;
+        allroutes = allroutes.concat(routes);
+      }
+      return allroutes;
+    } else {
+      return Config.roles.notauth.routes;
+    }
+  }
+});
+
 //templates events
 Template.ApplicationLayout.events({
-
+    'click paper-item.menu-item': function(event, template) {
+      Router.go(this.path);
+      template.firstNode.closeDrawer();
+    }
 });
 
 Template.cart.events({
@@ -51,6 +71,9 @@ Template.dish.events({
     var copiedDishes = dishes.slice(0); //force new array to update session
     copiedDishes.push(this);
     Session.set('dishes', copiedDishes);
+  },
+  'click .dish .preview': function (event, template) {
+    Router.go('/dish/'+this._id);
   }
 });
 
@@ -58,33 +81,5 @@ Template.categorie.events({
   'click .categorie' : function (event, template) {
     Router.go('/categorie/'+this._id);
   }
-});
-
-
-//routes
-Router.configure({
-  layoutTemplate: 'ApplicationLayout'
-});
-
-Router.route('/', function () {
-  this.render('categories', {
-    //data: function () { return Items.findOne({_id: this.params._id}) }
-  });
-});
-
-Router.route('/cart', function () {
-  this.render('cart', {
-    //data: function () { return Items.findOne({_id: this.params._id}) }
-  });
-});
-
-Router.route('/categorie/:_id', function () {
-  this.render('dishes', {
-    data : function() {
-      return {
-        dishes : Dishes.find({categorieId: this.params._id})
-      };
-    }
-  });
 });
 

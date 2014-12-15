@@ -1,2 +1,22 @@
 /* CSS declarations go here */
 
+#login-dropdown-list {
+    margin-right: 142px;
+    margin-left: auto;
+}
+
+[drawer] {
+    background-color:white;
+}
+
+#drawerPanel, [drawer] {
+    background-color: #eee;
+}
+
+.content {
+    background: white;
+}
+
+paper-item.core-selected {
+    background-color: #dedede;
+}
