@@ -1,31 +1,47 @@
 <head>
-  <title>myapp</title>
+    <title>Maidan</title>
+    <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+    <link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+    <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+    <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="bower_components/core-icons/core-icons.html">
+    <link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
+    <link rel="import" href="bower_components/core-menu/core-menu.html">
+    <link rel="import" href="bower_components/core-selector/core-selector.html">
+    <link rel="import" href="bower_components/paper-item/paper-item.html">
 </head>
 
 <body>
-<div class="container">
 
-</div>
 </body>
 
 <template name="ApplicationLayout">
-    <header>
-        <h1>Todo List !</h1>
-    </header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/cart">My cart</a>
-            </li>
-        </ul>
-    </nav>
+    <core-drawer-panel id="drawerPanel">
+        <core-scroll-header-panel drawer>
+            <core-toolbar class="medium-tall">
+                <div class="bottom" flex>Menu</div>
+            </core-toolbar>
+            <div>
+                <core-selector>
+                    {{#each menuItems}}
+                        <paper-item class="menu-item" noink>{{name}}</paper-item>
+                    {{/each}}
+                </core-selector>
+            </div>
+        </core-scroll-header-panel>
 
-    <article>
-        {{> yield}}
-    </article>
+        <core-scroll-header-panel main mode="cover" shadow="true">
+            <core-toolbar class="medium-tall">
+                <core-icon-button icon="menu" core-drawer-toggle class="bottom"></core-icon-button>
+                <div class="bottom" flex>La Carte</div>
+                <div class="bottom" style="display: inline">{{> loginButtons}}</div>
+            </core-toolbar>
+            <div class="content">
+                {{> yield }}
+            </div>
+        </core-scroll-header-panel>
+    </core-drawer-panel>
 </template>
 
 <template name="categories">
@@ -52,9 +68,11 @@
 
 <template name="dish">
     <li class="dish">
-        <span class="name">{{name}}</span>
-        <span class="name">{{description}}</span>
-        <span class="name">{{price}}</span>
+        <div class="preview">
+            <span class="name">{{name}}</span>
+            <span class="name">{{description}}</span>
+            <span class="name">{{price}}</span>
+        </div>
         <button class="add">add</button>
     </li>
 </template>
